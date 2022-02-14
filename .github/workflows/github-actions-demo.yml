@@ -14,6 +14,9 @@ jobs:
         node-version: [15.x]
 
     steps:
+     - uses: actions/checkout@v2
+        with:
+          ref: gh-pages
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
@@ -22,9 +25,7 @@ jobs:
       - run: npm install
       - run: npm run build
       - run: git stash
-      - uses: actions/checkout@v2
-        with:
-          ref: gh-pages
+      - run: git switch gh-pages
       - run: git stash pop
       - run: git add ./
       - run: git commit -m "新页面"
